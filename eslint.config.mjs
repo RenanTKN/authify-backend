@@ -88,7 +88,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["**/*.module.ts"],
+    files: ["**/*.module.ts", "src/config/**"],
     rules: {
       "sort-keys": "off",
     },
