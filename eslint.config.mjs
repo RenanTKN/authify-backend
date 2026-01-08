@@ -7,7 +7,7 @@ import * as importPlugin from "eslint-plugin-import";
 
 export default tseslint.config(
   {
-    ignores: ["eslint.config.mjs"],
+    ignores: ["eslint.config.mjs", "generated/**"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -88,7 +88,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["**/*.module.ts", "src/config/**"],
+    files: ["**/*.module.ts", "src/config/**", "prisma.config.ts"],
     rules: {
       "sort-keys": "off",
     },

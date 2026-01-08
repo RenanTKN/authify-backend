@@ -2,6 +2,10 @@ export default () => ({
   env: process.env.NODE_ENV,
   port: parseInt(process.env.APP_PORT ?? "3000", 10),
 
+  database: {
+    url: process.env.DATABASE_URL,
+  },
+
   cookie: {
     secret: process.env.COOKIE_SECRET,
   },
