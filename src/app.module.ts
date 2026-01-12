@@ -5,6 +5,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import configuration from "./config/configuration";
 import { envValidationSchema } from "./config/env.validation";
+import { LoggerModule } from "./logger/logger.module";
 import { PrismaModule } from "./prisma/prisma.module";
 
 @Module({
@@ -15,6 +16,7 @@ import { PrismaModule } from "./prisma/prisma.module";
       validationSchema: envValidationSchema,
     }),
     PrismaModule,
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
