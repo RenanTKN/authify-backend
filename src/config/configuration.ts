@@ -10,6 +10,12 @@ export default () => ({
     secret: process.env.COOKIE_SECRET,
   },
 
+  hashing: {
+    memoryCost: parseInt(process.env.HASH_MEMORY_COST ?? "65536", 10),
+    parallelism: parseInt(process.env.HASH_PARALLELISM ?? "1", 10),
+    timeCost: parseInt(process.env.HASH_TIME_COST ?? "3", 10),
+  },
+
   jwt: {
     accessSecret: process.env.JWT_ACCESS_SECRET,
     refreshSecret: process.env.JWT_REFRESH_SECRET,

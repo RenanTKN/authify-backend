@@ -1,3 +1,4 @@
+import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 
@@ -13,6 +14,17 @@ async function bootstrap() {
 
   app.use(helmet());
   app.use(cookieParser(config.getOrThrow<string>("cookie.secret")));
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: false,
+      },
+      whitelist: true,
+    }),
+  );
 
   app.setGlobalPrefix("api");
 

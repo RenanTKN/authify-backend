@@ -13,5 +13,9 @@ export const envValidationSchema = Joi.object({
   JWT_ACCESS_TTL: Joi.string().default("10m"),
   JWT_REFRESH_TTL: Joi.string().default("7d"),
 
+  HASH_MEMORY_COST: Joi.number().default(65536),
+  HASH_PARALLELISM: Joi.number().default(1),
+  HASH_TIME_COST: Joi.number().default(3),
+
   COOKIE_SECRET: Joi.string().min(32).required(),
 });
