@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { AuthModule } from "./auth/auth.module";
 import configuration from "./config/configuration";
 import { envValidationSchema } from "./config/env.validation";
 import { LoggerModule } from "./logger/logger.module";
@@ -21,6 +22,7 @@ import { UsersModule } from "./users/users.module";
     UsersModule,
     LoggerModule,
     PasswordModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
