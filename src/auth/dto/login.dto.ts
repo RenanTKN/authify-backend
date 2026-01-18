@@ -1,10 +1,9 @@
-import { IsString, MinLength } from "class-validator";
+import { passwordField, usernameField } from "src/domain/user/user.fields";
 
 export class LoginDto {
-  @IsString()
+  @usernameField()
   username: string;
 
-  @IsString()
-  @MinLength(8)
+  @passwordField()
   password: string;
 }

@@ -4,6 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 
 import type { StringValue } from "ms";
 
+import { AUTH_SWAGGER } from "src/domain/auth/auth.swagger";
 import { PasswordService } from "src/password/password.service";
 import { UsersService } from "src/users/users.service";
 
@@ -47,7 +48,9 @@ export class AuthService {
     const user = await this.usersService.findForAuthByUsername(username);
 
     if (!user) {
-      throw new UnauthorizedException("Invalid credentials");
+      throw new UnauthorizedException(
+        AUTH_SWAGGER.responses.login.UNAUTHORIZED,
+      );
     }
 
     const isPasswordValid = await this.passwordService.verify(
@@ -56,7 +59,9 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException("Invalid credentials");
+      throw new UnauthorizedException(
+        AUTH_SWAGGER.responses.login.UNAUTHORIZED,
+      );
     }
 
     const payload: JwtPayload = {

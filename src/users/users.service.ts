@@ -6,6 +6,7 @@ import {
 
 import { Prisma } from "generated/prisma/client";
 
+import { USER_SWAGGER } from "src/domain/user/user.swagger";
 import { LoggerService } from "src/logger/logger.service";
 import { PasswordService } from "src/password/password.service";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -24,7 +25,11 @@ export class UsersService {
     this.logger.setContext(UsersService.name);
   }
 
-  async create({ email, password, username }: CreateUserDto) {
+  async create({
+    email,
+    password,
+    username,
+  }: CreateUserDto): Promise<BaseUser> {
     const passwordHash = await this.passwordService.hash(password);
 
     try {
@@ -41,7 +46,7 @@ export class UsersService {
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === "P2002"
       ) {
-        throw new ConflictException("User already exists");
+        throw new ConflictException(USER_SWAGGER.responses.create.CONFLICT);
       }
 
       this.logger.error("Failed to create user", error);

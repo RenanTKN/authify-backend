@@ -1,22 +1,16 @@
 import {
-  IsEmail,
-  IsString,
-  MinLength,
-  Matches,
-  MaxLength,
-} from "class-validator";
+  emailField,
+  passwordField,
+  usernameField,
+} from "src/domain/user/user.fields";
 
 export class CreateUserDto {
-  @IsEmail()
+  @emailField()
   email: string;
 
-  @IsString()
-  @MinLength(3)
-  @MaxLength(30)
-  @Matches(/^[a-z0-9_]+$/)
+  @usernameField()
   username: string;
 
-  @IsString()
-  @MinLength(8)
+  @passwordField()
   password: string;
 }
