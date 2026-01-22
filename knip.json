@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "project": ["src/**/*.ts"],
+  "ignore": ["**/*.spec.ts", "**/*.test.ts"],
+  "ignoreDependencies": [
+    "@prisma/client",
+    "@eslint/eslintrc",
+    "@types/supertest",
+    "source-map-support",
+    "supertest",
+    "ts-loader",
+    "dotenv"
+  ],
+  "entry": ["src/main.ts", "src/app.module.ts"]
+}
