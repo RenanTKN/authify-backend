@@ -12,18 +12,34 @@ export const AUTH_SWAGGER = {
       format: "jwt",
     },
 
+    clearRefreshToken: {
+      description: "Clear refresh token cookie",
+      schema: {
+        example:
+          "refresh_token=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+        type: "string",
+      },
+    },
+
     refreshToken: {
-      description: "JWT refresh token",
-      example: tokenExample,
-      format: "jwt",
+      description: "JWT refresh token (HttpOnly cookie)",
+      schema: {
+        example: `${tokenExample}; HttpOnly; Secure; SameSite=Strict`,
+        format: "jwt",
+      },
     },
   },
 
   responses: {
     login: {
-      OK: "Authenticate user and return JWT tokens",
+      OK: "Authenticate user and return access token. Refresh token is set via HttpOnly cookie.",
       UNAUTHORIZED: "Invalid username or password",
     },
+
+    logout: {
+      OK: "Logout user and clear refresh token cookie.",
+    },
+
     me: {
       OK: "Return authenticated user",
       UNAUTHORIZED: "Unauthorized",

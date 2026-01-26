@@ -1,6 +1,7 @@
 import { applyDecorators, HttpStatus } from "@nestjs/common";
 import {
   ApiBearerAuth,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
@@ -13,6 +14,9 @@ export function ApiLogin() {
   return applyDecorators(
     ApiOkResponse({
       description: AUTH_SWAGGER.responses.login.OK,
+      headers: {
+        "Set-Cookie": AUTH_SWAGGER.fields.refreshToken,
+      },
       type: LoginResponse,
     }),
     ApiUnauthorizedResponse(
@@ -22,6 +26,17 @@ export function ApiLogin() {
         AUTH_SWAGGER.responses.login.UNAUTHORIZED,
       ),
     ),
+  );
+}
+
+export function ApiLogout() {
+  return applyDecorators(
+    ApiNoContentResponse({
+      description: AUTH_SWAGGER.responses.logout.OK,
+      headers: {
+        "Set-Cookie": AUTH_SWAGGER.fields.clearRefreshToken,
+      },
+    }),
   );
 }
 

@@ -7,9 +7,6 @@ import { USER_SWAGGER } from "../user/user.swagger";
 export class LoginResponse {
   @ApiProperty(AUTH_SWAGGER.fields.accessToken)
   accessToken: string;
-
-  @ApiProperty(AUTH_SWAGGER.fields.refreshToken)
-  refreshToken: string;
 }
 
 export class MeResponse {

@@ -5,17 +5,25 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Res,
   UseGuards,
 } from "@nestjs/common";
 
-import { ApiLogin, ApiMe } from "src/domain/auth/auth.api.decorators";
+import type { Response } from "express";
 
+import {
+  ApiLogin,
+  ApiLogout,
+  ApiMe,
+} from "src/domain/auth/auth.api.decorators";
+
+import { clearRefreshTokenCookie, setRefreshTokenCookie } from "./auth.cookies";
 import { AuthService } from "./auth.service";
 import { CurrentUser } from "./decorators/current-user.decorator";
 import { ThrottleLogin } from "./decorators/throttle.decorator";
 import { LoginDto } from "./dto/login.dto";
 import { JwtAuthGuard } from "./guards/jwt-auth/jwt-auth.guard";
-import type { AuthTokens } from "./types/auth-tokens.type";
+import type { LoginResponse } from "./types/auth-tokens.type";
 import type { AuthUser } from "./types/auth-user.type";
 
 @Controller("auth")
@@ -26,8 +34,22 @@ export class AuthController {
   @ThrottleLogin()
   @HttpCode(HttpStatus.OK)
   @ApiLogin()
-  async login(@Body() dto: LoginDto): Promise<AuthTokens> {
-    return this.authService.login(dto);
+  async login(
+    @Body() dto: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<LoginResponse> {
+    const { accessToken, refreshToken } = await this.authService.login(dto);
+
+    setRefreshTokenCookie(res, refreshToken);
+
+    return { accessToken };
+  }
+
+  @Post("logout")
+  @ApiLogout()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  logout(@Res({ passthrough: true }) res: Response): void {
+    clearRefreshTokenCookie(res);
   }
 
   @Get("me")
