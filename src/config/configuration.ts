@@ -21,5 +21,7 @@ export default () => ({
     refreshSecret: process.env.JWT_REFRESH_SECRET,
     accessTtl: process.env.JWT_ACCESS_TTL,
     refreshTtl: process.env.JWT_REFRESH_TTL,
+    issuer: process.env.JWT_ISSUER,
+    audience: process.env.JWT_AUDIENCE,
   },
 });
