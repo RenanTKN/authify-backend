@@ -12,6 +12,7 @@ import { ApiLogin, ApiMe } from "src/domain/auth/auth.api.decorators";
 
 import { AuthService } from "./auth.service";
 import { CurrentUser } from "./decorators/current-user.decorator";
+import { ThrottleLogin } from "./decorators/throttle.decorator";
 import { LoginDto } from "./dto/login.dto";
 import { JwtAuthGuard } from "./guards/jwt-auth/jwt-auth.guard";
 import type { AuthTokens } from "./types/auth-tokens.type";
@@ -22,6 +23,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("login")
+  @ThrottleLogin()
   @HttpCode(HttpStatus.OK)
   @ApiLogin()
   async login(@Body() dto: LoginDto): Promise<AuthTokens> {

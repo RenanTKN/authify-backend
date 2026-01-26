@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 
+import { ThrottleCreateUser } from "src/auth/decorators/throttle.decorator";
 import { ApiCreateUser } from "src/domain/user/user.api.decorators";
 import { CreateUserResponse } from "src/domain/user/user.responses";
 
@@ -11,6 +12,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @ThrottleCreateUser()
   @HttpCode(HttpStatus.CREATED)
   @ApiCreateUser()
   async create(
