@@ -22,7 +22,7 @@ import { AuthService } from "./auth.service";
 import { CurrentUser } from "./decorators/current-user.decorator";
 import { ThrottleLogin } from "./decorators/throttle.decorator";
 import { LoginDto } from "./dto/login.dto";
-import { JwtAuthGuard } from "./guards/jwt-auth/jwt-auth.guard";
+import { JwtAccessGuard } from "./guards/jwt-access/jwt-access.guard";
 import type { LoginResponse } from "./types/auth-tokens.type";
 import type { AuthUser } from "./types/auth-user.type";
 
@@ -53,7 +53,7 @@ export class AuthController {
   }
 
   @Get("me")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @HttpCode(HttpStatus.OK)
   @ApiMe()
   me(@CurrentUser() user: AuthUser) {

@@ -8,7 +8,10 @@ import { AuthUser } from "../types/auth-user.type";
 import { AccessTokenPayload } from "../types/jwt-payload.type";
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
+export class JwtAccessStrategy extends PassportStrategy(
+  Strategy,
+  "jwt-access",
+) {
   constructor(configService: ConfigService) {
     super({
       audience: configService.getOrThrow("jwt.audience"),
