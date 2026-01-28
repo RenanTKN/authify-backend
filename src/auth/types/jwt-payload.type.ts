@@ -1,3 +1,5 @@
+import { UserRole } from "generated/prisma/enums";
+
 export type JwtBasePayload = {
   aud: string;
   iss: string;
@@ -6,7 +8,7 @@ export type JwtBasePayload = {
 
 export type AccessTokenPayload = JwtBasePayload & {
   username: string;
-  role: string;
+  role: UserRole;
   tokenType: "access";
 };
 

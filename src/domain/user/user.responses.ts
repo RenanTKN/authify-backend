@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
+import { UserRole } from "generated/prisma/enums";
+
 import { USER_SWAGGER } from "./user.swagger";
 import { COMMON_SWAGGER } from "../commom/commom.swagger";
 
@@ -11,7 +13,7 @@ export class CreateUserResponse {
   username: string;
 
   @ApiProperty(USER_SWAGGER.fields.role)
-  role: string;
+  role: UserRole;
 
   @ApiProperty(COMMON_SWAGGER.fields.createdAt)
   createdAt: Date;

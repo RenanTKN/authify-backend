@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
+import { UserRole } from "generated/prisma/enums";
+
 import { AUTH_SWAGGER } from "./auth.swagger";
 import { COMMON_SWAGGER } from "../commom/commom.swagger";
 import { USER_SWAGGER } from "../user/user.swagger";
@@ -14,7 +16,7 @@ export class MeResponse {
   id: string;
 
   @ApiProperty(USER_SWAGGER.fields.role)
-  role: string;
+  role: UserRole;
 
   @ApiProperty(USER_SWAGGER.fields.username)
   username: string;
