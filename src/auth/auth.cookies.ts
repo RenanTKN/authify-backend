@@ -1,13 +1,17 @@
 import type { Response } from "express";
+import ms, { StringValue } from "ms";
 
-const REFRESH_TOKEN_TTL = 7 * 24 * 60 * 60 * 1000;
 const COOKIE_NAME = "refresh_token";
 const COOKIE_PATH = "/auth";
 
-export function setRefreshTokenCookie(res: Response, refreshToken: string) {
+export function setRefreshTokenCookie(
+  res: Response,
+  refreshToken: string,
+  ttl: StringValue,
+) {
   res.cookie(COOKIE_NAME, refreshToken, {
     httpOnly: true,
-    maxAge: REFRESH_TOKEN_TTL,
+    maxAge: ms(ttl),
     path: COOKIE_PATH,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",

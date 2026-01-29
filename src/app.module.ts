@@ -12,6 +12,7 @@ import throttlerConfig from "./config/throttler.config";
 import { LoggerModule } from "./logger/logger.module";
 import { PasswordModule } from "./password/password.module";
 import { PrismaModule } from "./prisma/prisma.module";
+import { RefreshTokenModule } from "./refresh-token/refresh-token.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -27,6 +28,7 @@ import { UsersModule } from "./users/users.module";
     PasswordModule,
     AuthModule,
     ThrottlerModule.forRoot(throttlerConfig),
+    RefreshTokenModule,
   ],
   controllers: [AppController],
   providers: [

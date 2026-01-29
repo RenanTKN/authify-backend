@@ -40,6 +40,26 @@ export function ApiLogout() {
   );
 }
 
+export function ApiRefresh() {
+  return applyDecorators(
+    ApiOkResponse({
+      description: AUTH_SWAGGER.responses.refresh.OK,
+      headers: {
+        "Set-Cookie": AUTH_SWAGGER.fields.refreshToken,
+      },
+      type: LoginResponse,
+    }),
+
+    ApiUnauthorizedResponse(
+      swaggerErrorResponse(
+        HttpStatus.UNAUTHORIZED,
+        "Unauthorized",
+        AUTH_SWAGGER.responses.refresh.UNAUTHORIZED,
+      ),
+    ),
+  );
+}
+
 export function ApiMe() {
   return applyDecorators(
     ApiBearerAuth("access-token"),

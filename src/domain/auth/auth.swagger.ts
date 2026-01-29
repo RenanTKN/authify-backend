@@ -44,5 +44,10 @@ export const AUTH_SWAGGER = {
       OK: "Return authenticated user",
       UNAUTHORIZED: "Unauthorized",
     },
+
+    refresh: {
+      OK: "Issue a new access token and rotate refresh token. New refresh token is set via HttpOnly cookie.",
+      UNAUTHORIZED: "Invalid or expired refresh token",
+    },
   },
 };

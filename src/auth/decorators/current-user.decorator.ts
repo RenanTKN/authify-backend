@@ -6,16 +6,14 @@ import {
 
 import { Request } from "express";
 
-import { AuthUser } from "../types/auth-user.type";
-
 export const CurrentUser = createParamDecorator(
-  (_: unknown, ctx: ExecutionContext): AuthUser => {
+  <T = unknown>(_: unknown, ctx: ExecutionContext): T => {
     const request = ctx.switchToHttp().getRequest<Request>();
 
     if (!request.user) {
       throw new UnauthorizedException("User not authenticated");
     }
 
-    return request.user;
+    return request.user as T;
   },
 );

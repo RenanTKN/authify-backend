@@ -5,3 +5,8 @@ export type AuthUser = {
   username: string;
   role: UserRole;
 };
+
+export type RefreshUser = {
+  id: string;
+  jti: string;
+};

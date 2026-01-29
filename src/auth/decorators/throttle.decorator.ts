@@ -17,3 +17,12 @@ export const ThrottleCreateUser = () =>
       ttl: minutes(10),
     },
   });
+
+export const ThrottleRefreshToken = () =>
+  Throttle({
+    default: {
+      blockDuration: minutes(10),
+      limit: 5,
+      ttl: minutes(1),
+    },
+  });

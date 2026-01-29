@@ -1,3 +1,4 @@
+import { ConfigService } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { AuthController } from "./auth.controller";
@@ -15,10 +16,17 @@ jest.mock("./auth.service", () => ({
 describe("AuthController", () => {
   let controller: AuthController;
 
+  const mockConfigService = {
+    getOrThrow: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
-      providers: [AuthService],
+      providers: [
+        AuthService,
+        { provide: ConfigService, useValue: mockConfigService },
+      ],
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
